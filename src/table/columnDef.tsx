@@ -1,8 +1,11 @@
+import { createColumnHelper } from '@tanstack/react-table';
+
+const columnHelper = createColumnHelper<any>();
+
 export const columnDef = [
-    {
-        accessorKey: 'id',
-        header: 'id',
-    },
+    columnHelper.accessor('id', {
+        header: 'id'
+    }),
     {
         accessorKey: 'first_name',
         header: 'First Name'
