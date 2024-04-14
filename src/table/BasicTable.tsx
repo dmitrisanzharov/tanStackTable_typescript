@@ -19,10 +19,10 @@ import {
 type Props = {};
 
 const BasicTable = (props: Props) => {
-	const dataMemo = React.useMemo(() => data, [data]);
-	const columnsMemo = React.useMemo(() => columnDef, [columnDef]);
+	const dataMemo: any = React.useMemo(() => data, [data]);
+	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
 
-	const table = useReactTable({
+	const table: any = useReactTable({
 		data: dataMemo,
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
@@ -32,13 +32,13 @@ const BasicTable = (props: Props) => {
 
 	// temp block
 	let a1 = table;
-	console.log(a1);
+	// console.log(a1);
 
 
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
-				<TableHead sx={{backgroundColor: 'lightgray'}}>
+				<TableHead sx={{backgroundColor: 'lightgray', outline: '1px solid black' }}>
 					{table.getHeaderGroups().map((headerGroup: any) => {
 						// console.log("headerGroup", headerGroup);
 						// console.log("============================");
@@ -51,7 +51,7 @@ const BasicTable = (props: Props) => {
 										// 	headerColumn
 										// );
 										return (
-											<TableCell key={headerColumn.id}>
+											<TableCell key={headerColumn.id} sx={{fontWeight: 'bold'}}>
 												{flexRender(
 													headerColumn.column
 														.columnDef.header,
