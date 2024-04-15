@@ -5,7 +5,7 @@ import {
 	getCoreRowModel,
 } from "@tanstack/react-table";
 import data from "./data";
-import { columnDef } from "./columnDef";
+import { columnDef, columnDefGrouped } from "./columnDef";
 import {
 	TableContainer,
 	Paper,
@@ -19,14 +19,14 @@ import {
 
 type Props = {};
 
-const BasicTable = (props: Props) => {
+const GroupingTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
-	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
+	const columnsMemo: any = React.useMemo(() => columnDefGrouped, [columnDefGrouped]);
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
 		mahMan: true,
-		idYo: false,
+		idYo: true,
 	};
 
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
@@ -63,7 +63,7 @@ const BasicTable = (props: Props) => {
 						}}
 					>
 						{table.getHeaderGroups().map((headerGroup: any) => {
-							// console.log("headerGroup", headerGroup);
+							console.log("headerGroup", headerGroup);
 							// console.log("============================");
 							return (
 								<TableRow key={headerGroup.id}>
@@ -77,8 +77,9 @@ const BasicTable = (props: Props) => {
 												<TableCell
 													key={headerColumn.id}
 													sx={{ fontWeight: "bold" }}
+                                                    colSpan={headerColumn.colSpan}
 												>
-													{flexRender(
+													{headerColumn.isPlaceholder ? null : flexRender(
 														headerColumn.column
 															.columnDef.header,
 														headerColumn.getContext()
@@ -120,4 +121,4 @@ const BasicTable = (props: Props) => {
 	);
 };
 
-export default BasicTable;
+export default GroupingTable;
