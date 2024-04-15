@@ -7,7 +7,8 @@ export const columnDef = [
         return "id";
     }, {
 		header: "id",
-        omg: 'omg'
+        omg: 'omg', 
+		id: 'idYo'
 	} as any),
 	columnHelper.accessor("first_name", {
 		header: "first_name",
@@ -16,7 +17,10 @@ export const columnDef = [
 		header: "last_name",
 	}),
 	columnHelper.accessor("email", {
-		header: "email",
+		header: (info: any) => {
+			// console.log('info', info);
+			return "email"; 
+		},
 	}),
     columnHelper.accessor(()=> "doesNotExist" + 'lalala', {
         id: 'mahMan',
@@ -25,6 +29,6 @@ export const columnDef = [
             // console.log('info', info.getValue());
             return info.getValue();
         },
+		enableHiding: true
 	})
 ];
-
