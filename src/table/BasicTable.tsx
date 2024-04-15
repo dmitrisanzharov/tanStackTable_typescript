@@ -53,6 +53,7 @@ const BasicTable = (props: Props) => {
 											return (
 												<TableCell
 													key={headerColumn.id}
+													sx={{fontWeight: 'bold'}}
 												>
 													{flexRender(
 														headerColumn.column
