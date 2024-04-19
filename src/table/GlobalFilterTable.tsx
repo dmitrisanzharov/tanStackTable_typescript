@@ -3,7 +3,7 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
-    getSortedRowModel
+    getFilteredRowModel
 } from "@tanstack/react-table";
 import data from "./data";
 import { columnDef } from "./columnDef";
@@ -20,11 +20,11 @@ import {
 
 type Props = {};
 
-const SortingTable = (props: Props) => {
+const GlobalFilterTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
 	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
 
-    const [sorting, setSorting] = React.useState([{id: 'last_name', desc: false}]);
+    const [globalFilter, setGlobalFilter] = React.useState('');
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
@@ -38,13 +38,14 @@ const SortingTable = (props: Props) => {
 		data: dataMemo,
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
 		anyKey: "test",
-		state: {
-            sorting: sorting
+		state: { 
+			columnVisibility: vis,
+            globalFilter: globalFilter
 		},
-        onSortingChange: setSorting,
 		onColumnVisibilityChange: setColumnVis,
+        onGlobalFilterChanged: setGlobalFilter
 	} as any);
 
 	// temp block
@@ -55,22 +56,9 @@ const SortingTable = (props: Props) => {
 		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
 	}
 
-    function sortingReturn(sortName: any){
-        console.log('sortName', sortName);
-        if(!sortName){
-            return null;
-        }
-
-        if(sortName === 'asc'){
-            return ' -asc';
-        }
-
-        return ' -desc';
-    }
-
 	return (
 		<Box>
-			<button onClick={handleClick}>change vis</button>
+			<input type='text' value={globalFilter} onChange={(e)=> setGlobalFilter(e.target.value)} />
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -95,14 +83,12 @@ const SortingTable = (props: Props) => {
 												<TableCell
 													key={headerColumn.id}
 													sx={{ fontWeight: "bold" }}
-                                                    onClick={headerColumn.column.getToggleSortingHandler()}
 												>
 													{flexRender(
 														headerColumn.column
 															.columnDef.header,
 														headerColumn.getContext()
 													)}
-                                                    {sortingReturn(headerColumn.column.getIsSorted())}
 												</TableCell>
 											);
 										}
@@ -140,4 +126,4 @@ const SortingTable = (props: Props) => {
 	);
 };
 
-export default SortingTable;
+export default GlobalFilterTable;

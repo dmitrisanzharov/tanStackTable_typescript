@@ -5,6 +5,8 @@ import './App.css';
 import BasicTable from './table/BasicTable';
 import GroupingTable from './table/GroupingTable';
 import SortingTable from './table/SortingTable';
+import GlobalFilterTable from './table/GlobalFilterTable';
+import ColumnFilteringTable from './table/ColumnFilteringTable';
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
       <hr />
       {/* <BasicTable /> */}
       {/* <GroupingTable /> */}
-      <SortingTable />
+      {/* <SortingTable /> */}
+      {/* <GlobalFilterTable /> */}
+      <ColumnFilteringTable />
     </div>
   );
 }

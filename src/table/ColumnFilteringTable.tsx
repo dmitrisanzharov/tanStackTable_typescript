@@ -3,7 +3,7 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
-    getSortedRowModel
+	getFilteredRowModel,
 } from "@tanstack/react-table";
 import data from "./data";
 import { columnDef } from "./columnDef";
@@ -15,16 +15,18 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-	Box
+	Box,
 } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 type Props = {};
 
-const SortingTable = (props: Props) => {
+const ColumnFilteringTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
 	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
-
-    const [sorting, setSorting] = React.useState([{id: 'last_name', desc: false}]);
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
@@ -33,17 +35,21 @@ const SortingTable = (props: Props) => {
 	};
 
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
+	const [dropValue, setDropDownValue] = React.useState<any>('');
+    const [filterValue, setFilterValue] = React.useState('');
+	const handleChange = (event: SelectChangeEvent) => {
+		setDropDownValue(event.target.value as string);
+	};
 
 	const table: any = useReactTable({
 		data: dataMemo,
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
 		anyKey: "test",
 		state: {
-            sorting: sorting
+			columnVisibility: vis,
 		},
-        onSortingChange: setSorting,
 		onColumnVisibilityChange: setColumnVis,
 	} as any);
 
@@ -51,26 +57,48 @@ const SortingTable = (props: Props) => {
 	let a1 = table;
 	// console.log(a1);
 
-	function handleClick(){
-		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
+	function handleClick() {
+		setColumnVis({
+			...initialColumnVisibilityObj,
+			idYo: true,
+			mahMan: true,
+		});
 	}
 
-    function sortingReturn(sortName: any){
-        console.log('sortName', sortName);
-        if(!sortName){
-            return null;
-        }
+	React.useEffect(() => {
+		let allColumns = table.getAllColumns();
 
-        if(sortName === 'asc'){
-            return ' -asc';
-        }
+		// set filter per column
+		allColumns.map((column: any) => {
+			console.log("column", column);
 
-        return ' -desc';
-    }
+			if (column.id === dropValue) {
+				column.setFilterValue(filterValue);
+			}
+		});
+	}, [dropValue, filterValue]);
 
 	return (
 		<Box>
-			<button onClick={handleClick}>change vis</button>
+			<FormControl sx={{width: '120px'}}>
+				<InputLabel id="demo-simple-select-label">Select Id</InputLabel>
+				<Select
+					labelId="demo-simple-select-label"
+					id="demo-simple-select"
+					value={dropValue}
+					label="DropDownValue"
+					onChange={handleChange}
+				>
+					{table?.getAllColumns()?.map((column: any)=> {
+                        return (
+                            <MenuItem key={column.id} value={column.id}>
+                                {column.id}
+                            </MenuItem>
+                        )
+                    })}
+				</Select>
+			</FormControl>
+            <input type='text' value={filterValue} onChange={e=> setFilterValue(e.target.value)} />
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -95,14 +123,12 @@ const SortingTable = (props: Props) => {
 												<TableCell
 													key={headerColumn.id}
 													sx={{ fontWeight: "bold" }}
-                                                    onClick={headerColumn.column.getToggleSortingHandler()}
 												>
 													{flexRender(
 														headerColumn.column
 															.columnDef.header,
 														headerColumn.getContext()
 													)}
-                                                    {sortingReturn(headerColumn.column.getIsSorted())}
 												</TableCell>
 											);
 										}
@@ -140,4 +166,4 @@ const SortingTable = (props: Props) => {
 	);
 };
 
-export default SortingTable;
+export default ColumnFilteringTable;
