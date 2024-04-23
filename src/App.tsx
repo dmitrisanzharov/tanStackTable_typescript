@@ -7,6 +7,7 @@ import GroupingTable from './table/GroupingTable';
 import SortingTable from './table/SortingTable';
 import GlobalFilterTable from './table/GlobalFilterTable';
 import ColumnFilteringTable from './table/ColumnFilteringTable';
+import ColumnFilteringTable2 from './table/ColumnFilteringTable2';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       {/* <GroupingTable /> */}
       {/* <SortingTable /> */}
       {/* <GlobalFilterTable /> */}
-      <ColumnFilteringTable />
+      {/* <ColumnFilteringTable /> */}
+      <ColumnFilteringTable2 />
     </div>
   );
 }

@@ -18,6 +18,7 @@ export const columnDef = [
 	}),
 	columnHelper.accessor("last_name", {
 		header: "last_name",
+		enableColumnFilter: false
 	}),
 	columnHelper.accessor("email", {
 		header: (info: any) => {
