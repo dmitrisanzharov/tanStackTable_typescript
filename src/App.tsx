@@ -8,6 +8,7 @@ import SortingTable from './table/SortingTable';
 import GlobalFilterTable from './table/GlobalFilterTable';
 import ColumnFilteringTable from './table/ColumnFilteringTable';
 import ColumnFilteringTable2 from './table/ColumnFilteringTable2';
+import PaginationTable from './table/PaginationTable';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       {/* <SortingTable /> */}
       {/* <GlobalFilterTable /> */}
       {/* <ColumnFilteringTable /> */}
-      <ColumnFilteringTable2 />
+      {/* <ColumnFilteringTable2 /> */}
+      <PaginationTable />
     </div>
   );
 }

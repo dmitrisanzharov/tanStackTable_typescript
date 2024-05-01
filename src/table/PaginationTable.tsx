@@ -3,7 +3,7 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
-	getFilteredRowModel,
+    getPaginationRowModel
 } from "@tanstack/react-table";
 import data from "./data";
 import { columnDef } from "./columnDef";
@@ -20,7 +20,7 @@ import {
 
 type Props = {};
 
-const ColumnFilteringTable2 = (props: Props) => {
+const PaginationTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
 	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
 
@@ -30,33 +30,23 @@ const ColumnFilteringTable2 = (props: Props) => {
 		idYo: false,
 	};
 
-	const defaultColumn = React.useMemo(() => ({
-		victor: "yo",
-		}), []);
-		
-
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
-	const [columnFilters, setColumnFilters] = React.useState([{id: 'last_name', value: 'Vardon'}]);
 
 	const table: any = useReactTable({
 		data: dataMemo,
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
 		anyKey: "test",
-		defaultColumn: defaultColumn,
 		state: {
 			columnVisibility: vis,
-			columnFilters: columnFilters,
 		},
 		onColumnVisibilityChange: setColumnVis,
-		onColumnFiltersChange: setColumnFilters,
 	} as any);
 
 	// temp block
 	let a1 = table;
-	console.log(a1);
-	console.log('all columns', a1.getAllColumns());
+	// console.log(a1);
 
 	function handleClick(){
 		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
@@ -64,7 +54,10 @@ const ColumnFilteringTable2 = (props: Props) => {
 
 	return (
 		<Box>
-			<button onClick={handleClick}>change vis</button>
+			<Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <button>blah</button>
+                <button>blah</button>
+            </Box>
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -95,7 +88,6 @@ const ColumnFilteringTable2 = (props: Props) => {
 															.columnDef.header,
 														headerColumn.getContext()
 													)}
-													{ headerColumn.column.getCanFilter() && <input type='text' value={headerColumn.column.getFilterValue() || ''} onChange={e=> headerColumn.column.setFilterValue(e.target.value)} />}
 												</TableCell>
 											);
 										}
@@ -133,4 +125,4 @@ const ColumnFilteringTable2 = (props: Props) => {
 	);
 };
 
-export default ColumnFilteringTable2;
+export default PaginationTable;
