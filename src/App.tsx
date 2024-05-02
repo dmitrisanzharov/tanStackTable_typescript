@@ -9,6 +9,7 @@ import GlobalFilterTable from './table/GlobalFilterTable';
 import ColumnFilteringTable from './table/ColumnFilteringTable';
 import ColumnFilteringTable2 from './table/ColumnFilteringTable2';
 import PaginationTable from './table/PaginationTable';
+import RowSelectionTable from './table/RowSelectionTable'
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       {/* <GlobalFilterTable /> */}
       {/* <ColumnFilteringTable /> */}
       {/* <ColumnFilteringTable2 /> */}
-      <PaginationTable />
+      {/* <PaginationTable /> */}
+      <RowSelectionTable />
     </div>
   );
 }
