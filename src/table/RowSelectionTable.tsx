@@ -5,7 +5,7 @@ import {
 	getCoreRowModel,
 } from "@tanstack/react-table";
 import data from "./data";
-import { columnDef } from "./columnDef";
+import { columnDef, columnDefSelectedRows } from "./columnDef";
 import {
 	TableContainer,
 	Paper,
@@ -21,12 +21,12 @@ type Props = {};
 
 const RowSelectionTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
-	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
+	const columnsMemo: any = React.useMemo(() => columnDefSelectedRows, [columnDefSelectedRows]);
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
 		mahMan: true,
-		idYo: false,
+		idYo: true,
 	};
 
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
@@ -37,9 +37,12 @@ const RowSelectionTable = (props: Props) => {
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
 		anyKey: "test",
+		enableRowSelection: true,
 		state: {
 			columnVisibility: vis,
+			rowSelection: rowSelection
 		},
+		onRowSelectionChange: setRowSelection,
 		onColumnVisibilityChange: setColumnVis,
 	} as any);
 
@@ -53,7 +56,7 @@ const RowSelectionTable = (props: Props) => {
 
 	return (
 		<Box>
-			<button onClick={handleClick}>change vis</button>
+			<input type='checkbox' checked={table.getIsAllRowsSelected()} onChange={table.getToggleAllRowsSelectedHandler()} />
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
