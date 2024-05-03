@@ -3,10 +3,9 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
-	getPaginationRowModel,
 } from "@tanstack/react-table";
 import data from "./data";
-import { columnDef, columnDefSelectedRows } from "./columnDef";
+import { columnDef } from "./columnDef";
 import {
 	TableContainer,
 	Paper,
@@ -15,69 +14,45 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-	Box,
+	Box
 } from "@mui/material";
 
 type Props = {};
 
-const RowSelectionTable = (props: Props) => {
+const FacetedValuesTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
-	const columnsMemo: any = React.useMemo(
-		() => columnDefSelectedRows,
-		[columnDefSelectedRows]
-	);
+	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
 		mahMan: true,
-		idYo: true,
+		idYo: false,
 	};
 
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
-	const [rowSelection, setRowSelection] = React.useState({});
-	const [columnOrder, setColumnOrder] = React.useState<any>(['idYo', 'email']);
 
 	const table: any = useReactTable({
 		data: dataMemo,
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
 		anyKey: "test",
-		enableRowSelection: true,
-		getPaginationRowModel: getPaginationRowModel(),
 		state: {
 			columnVisibility: vis,
-			rowSelection: rowSelection,
-			columnOrder: columnOrder,
 		},
-		onRowSelectionChange: setRowSelection,
 		onColumnVisibilityChange: setColumnVis,
-		onColumnOrderChange: setColumnOrder,
 	} as any);
 
 	// temp block
 	let a1 = table;
 	// console.log(a1);
 
-	function handleClick() {
-		setColumnVis({
-			...initialColumnVisibilityObj,
-			idYo: true,
-			mahMan: true,
-		});
+	function handleClick(){
+		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
 	}
 
 	return (
 		<Box>
-			<button onClick={()=> setColumnOrder(['last_name'])}>change column order</button>
-			<hr />
-			<ul>
-				{table.getSelectedRowModel().flatRows.length > 0 ? table.getSelectedRowModel().flatRows.map((row: any) => {
-					return <li key={row.id}>
-						{JSON.stringify(row)}
-					</li>
-				}) : 'nothing is selected'}
-			</ul>
-
+			<button onClick={handleClick}>change vis</button>
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -145,4 +120,4 @@ const RowSelectionTable = (props: Props) => {
 	);
 };
 
-export default RowSelectionTable;
+export default FacetedValuesTable;

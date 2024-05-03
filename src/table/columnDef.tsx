@@ -38,12 +38,17 @@ export const columnDef = [
 ];
 
 export const columnDefSelectedRows = [
+    {
+        id: 'select row',
+        header: (info: any) => <input type='checkbox' checked={info.table.getIsAllRowsSelected()} onChange={info.table.getToggleAllRowsSelectedHandler()} />,
+        cell: (info: any) => <input type='checkbox' checked={info.row.getIsSelected()} onChange={info.row.getToggleSelectedHandler()} disabled={!info.row.getCanSelect()} />
+    },
     columnHelper.accessor(
         (row, idx) => {
             return row.id;
         },
         {
-            header: (info: any) => <input type='checkbox' checked={info.table.getIsAllRowsSelected()} />,
+            header: 'id',
             id: 'idYo',
         } as any
     ),
