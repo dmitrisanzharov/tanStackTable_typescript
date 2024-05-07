@@ -3,11 +3,9 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
-	getFacetedUniqueValues,
-	getFacetedRowModel
 } from "@tanstack/react-table";
 import data from "./data";
-import { columnDef, columnDefFace } from "./columnDef";
+import { columnDef } from "./columnDef";
 import {
 	TableContainer,
 	Paper,
@@ -21,9 +19,9 @@ import {
 
 type Props = {};
 
-const FacetedValuesTable = (props: Props) => {
+const ColumnHidingTable = (props: Props) => {
 	const dataMemo: any = React.useMemo(() => data, [data]);
-	const columnsMemo: any = React.useMemo(() => columnDefFace, [columnDefFace]);
+	const columnsMemo: any = React.useMemo(() => columnDef, [columnDef]);
 
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
@@ -42,8 +40,6 @@ const FacetedValuesTable = (props: Props) => {
 			columnVisibility: vis,
 		},
 		onColumnVisibilityChange: setColumnVis,
-		getFacetedUniqueValues:  getFacetedUniqueValues(),
-		getFacetedRowModel: getFacetedRowModel()
 	} as any);
 
 	// temp block
@@ -54,16 +50,9 @@ const FacetedValuesTable = (props: Props) => {
 		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
 	}
 
-	React.useEffect(() => {
-		let main = table.getAllColumns().map((col: any)=> {
-			// console.log('col', col?.accessorFn())
-			console.log('faceted', Array.from(col.getFacetedUniqueValues().keys()));
-		})
-	}, []);
-
 	return (
 		<Box>
-			<button onClick={handleClick}>change vis</button>
+		{/* stopped here */}
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -131,4 +120,4 @@ const FacetedValuesTable = (props: Props) => {
 	);
 };
 
-export default FacetedValuesTable;
+export default ColumnHidingTable;

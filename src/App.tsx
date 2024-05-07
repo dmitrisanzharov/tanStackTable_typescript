@@ -11,6 +11,7 @@ import ColumnFilteringTable2 from './table/ColumnFilteringTable2';
 import PaginationTable from './table/PaginationTable';
 import RowSelectionTable from './table/RowSelectionTable';
 import FacetedValuesTable from './table/FacetedValuesTable';
+import ColumnHidingTable from './table/ColumnHidingTable';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
       {/* <ColumnFilteringTable2 /> */}
       {/* <PaginationTable /> */}
       {/* <RowSelectionTable /> */}
-      <FacetedValuesTable />
+      {/* <FacetedValuesTable /> */}
+      <ColumnHidingTable />
     </div>
   );
 }
