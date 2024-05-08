@@ -30,7 +30,7 @@ export const columnDefFace = [
         id: 'mahMan',
         header: 'doesNotExist',
         cell: (info) => {
-            // console.log('info', info.getValue());
+            console.log('info', info);
             return info.getValue();
         },
         enableHiding: true,
@@ -65,7 +65,7 @@ export const columnDef = [
         id: 'mahMan',
         header: 'doesNotExist',
         cell: (info) => {
-            // console.log('info', info.getValue());
+            console.log('info', info.column);
             return info.getValue();
         },
         enableHiding: true,

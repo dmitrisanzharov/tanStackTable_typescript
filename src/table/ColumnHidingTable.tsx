@@ -14,7 +14,7 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-	Box
+	Box,
 } from "@mui/material";
 
 type Props = {};
@@ -26,7 +26,7 @@ const ColumnHidingTable = (props: Props) => {
 	const initialColumnVisibilityObj: any = {
 		first_name: true,
 		mahMan: true,
-		idYo: false,
+		idYo: true,
 	};
 
 	const [vis, setColumnVis] = React.useState(initialColumnVisibilityObj);
@@ -46,13 +46,33 @@ const ColumnHidingTable = (props: Props) => {
 	let a1 = table;
 	// console.log(a1);
 
-	function handleClick(){
-		setColumnVis({...initialColumnVisibilityObj, idYo: true, mahMan: true})
+	function handleClick() {
+		setColumnVis({
+			...initialColumnVisibilityObj,
+			idYo: true,
+			mahMan: true,
+		});
 	}
 
 	return (
 		<Box>
-		{/* stopped here */}
+			<label>Hide all</label>
+			<input
+				type="checkbox"
+				checked={table.getIsAllColumnsVisible()}
+				onChange={table.getToggleAllColumnsVisibilityHandler()}
+			/>
+			<ul>
+				{table.getAllLeafColumns().map((col: any) => {
+					console.log("col", col.columnDef.header);
+					return typeof col.columnDef.header === 'string' ? (
+						<li key={col.id}>
+							<label>{col.columnDef.header}</label>
+							<input type='checkbox' checked={col.getIsVisible()} onChange={col.getToggleVisibilityHandler()}/>
+						</li>
+					) : <></>;
+				})}
+			</ul>
 			<hr />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }}>
@@ -78,11 +98,14 @@ const ColumnHidingTable = (props: Props) => {
 													key={headerColumn.id}
 													sx={{ fontWeight: "bold" }}
 												>
-													{flexRender(
-														headerColumn.column
-															.columnDef.header,
-														headerColumn.getContext()
-													)}
+													<>
+														{flexRender(
+															headerColumn.column
+																.columnDef
+																.header,
+															headerColumn.getContext()
+														)}
+													</>
 												</TableCell>
 											);
 										}
