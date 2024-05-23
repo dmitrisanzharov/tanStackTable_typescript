@@ -3,6 +3,8 @@ import {
 	useReactTable,
 	flexRender,
 	getCoreRowModel,
+	getFacetedUniqueValues,
+    getFacetedRowModel
 } from "@tanstack/react-table";
 import data from "./data";
 import { columnDef } from "./columnDef";
@@ -28,11 +30,20 @@ const BasicTable = (props: Props) => {
 		columns: columnsMemo,
 		getCoreRowModel: getCoreRowModel(),
 		anyKey: "test",
+		getFacetedUniqueValues:  getFacetedUniqueValues(),
+        getFacetedRowModel: getFacetedRowModel()
 	} as any);
 
-	// temp block
-	let a1 = table;
-	console.log(a1);
+	React.useEffect(() => {
+		let main = table.getAllColumns().map((col: any)=> {
+			if(col.id === 'geofence_types'){
+				console.log('faceted', Array.from(new Set(Array.from(col.getFacetedUniqueValues().keys()).flat(10))));
+			}
+
+        })
+
+	}, []);
+
 
 	return (
 		<Box>

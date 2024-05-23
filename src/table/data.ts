@@ -4,35 +4,40 @@ const apiData: any = [{
     "last_name": "Gamett",
     "email": "egamett0@csmonitor.com",
     "gender": "Male",
-    "ip_address": "111.4.162.25"
+    "ip_address": "111.4.162.25",
+    "geofence_types": "Country,Return Zone,Return Bay,Foo,Bar,Baz"
   }, {
     "id": 2,
     "first_name": "Lydia",
     "last_name": "Dandison",
     "email": "ldandison1@artisteer.com",
     "gender": "Female",
-    "ip_address": "132.36.73.130"
+    "ip_address": "132.36.73.130",
+    "geofence_types": "Foo,Bar,Baz"
   }, {
     "id": 3,
     "first_name": "Jervis",
     "last_name": "Gartenfeld",
     "email": null,
     "gender": "Male",
-    "ip_address": "205.35.161.189"
+    "ip_address": "205.35.161.189",
+    "geofence_types": "Country,Return Zone"
   }, {
     "id": 4,
     "first_name": "Lionel",
     "last_name": "Vardon",
     "email": "lvardon3@patch.com",
     "gender": null,
-    "ip_address": "13.220.250.231"
+    "ip_address": "13.220.250.231",
+    "geofence_types": "Country"
   }, {
     "id": 5,
     "first_name": "Delly",
     "last_name": "Lamberteschi",
     "email": "dlamberteschi4@bloomberg.com",
     "gender": "Female",
-    "ip_address": "162.217.76.3"
+    "ip_address": "162.217.76.3",
+    "geofence_types": "Return Zone"
   }, {
     "id": 6,
     "first_name": "Whitaker",
