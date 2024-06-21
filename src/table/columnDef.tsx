@@ -1,18 +1,14 @@
-export const columnDef = [
+export const columnDef: any = [
     {
-        accessorKey: 'id',
-        header: 'id',
+        id: 'id', 
+        accessorKey: 'id'
     },
     {
-        accessorKey: 'first_name',
-        header: 'First Name'
+        id: 'first_name', 
+        accessorKey: 'first_name'
     },
     {
-        accessorKey: 'last_name',
-        header: 'Last Name'
-    },
-    {
-        accessorKey: 'email',
-        header: 'Email'
-    },
+        id: 'email', 
+        accessorKey: 'email'
+    }
 ]
