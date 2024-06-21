@@ -13,18 +13,52 @@ import { columnDef } from "./columnDef";
 
 type Props = {};
 
-const BasicTable = (props: Props) => {
+const BasicTableTests1 = (props: Props) => {
 	const dataWithMemo = React.useMemo(() => allData, [allData]);
 	const columnDefWithDemo = React.useMemo(() => columnDef, [columnDef]);
 
 	const theTable: any = useReactTable({
 		data: dataWithMemo,
 		columns: columnDefWithDemo,
+        anyKey: 'hello',
 		getCoreRowModel: getCoreRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedRowModel: getFacetedRowModel(),
         getFilteredRowModel: getFilteredRowModel()
-	});
+	} as any);
+
+
+    // React.useMemo(() => {
+
+    //     theTable.getHeaderGroups().map((headerGroupObject: any) => {
+    //         headerGroupObject.headers.map((columnObject: any) => {
+    
+    //             if (columnObject.id === "first_name") {
+    //                 columnObject.column.setFilterValue("Ermin");
+    //             }
+    
+    //         });
+    //     });
+
+  
+    // }, []);
+
+    // React.useEffect(() => {
+    //     let test = theTable.getState().columnFilters;
+    //     console.log('theTable', test);
+    // }, []);
+
+    React.useEffect(() => {
+        let test = theTable.getRowModel().rows.map((el: any)=> {
+            console.log(el.getValue('first_name'))
+        });
+        // console.log('theTable', test);
+    }, []);
+
+
+
+
+
 
 	return (
 		<Mui.TableContainer>
@@ -93,4 +127,4 @@ const BasicTable = (props: Props) => {
 	);
 };
 
-export default BasicTable;
+export default BasicTableTests1;

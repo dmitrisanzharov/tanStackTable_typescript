@@ -4,8 +4,13 @@ export const columnDef: any = [
         accessorKey: 'id'
     },
     {
-        id: 'first_name', 
-        accessorKey: 'first_name'
+        id: 'first_name',
+        header: 'First Name', 
+        accessorFn: ((data: any)=> {
+            // console.log('row', data);
+            return data.first_name;
+        }),
+        cell: () => 'dim2i'
     },
     {
         id: 'email', 
