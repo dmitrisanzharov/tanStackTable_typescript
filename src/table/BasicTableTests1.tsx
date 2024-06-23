@@ -5,17 +5,18 @@ import {
 	flexRender,
 	getFacetedUniqueValues,
 	getFacetedRowModel,
-    getFilteredRowModel
+    getFilteredRowModel, 
+	TableOptions
 } from "@tanstack/react-table";
 import * as Mui from "@mui/material";
 import allData from "./data";
-import { columnDef } from "./columnDef";
+import { columnDef, Person, columnDefWithGroup } from "./columnDef"; 
 
 type Props = {};
 
 const BasicTableTests1 = (props: Props) => {
 	const dataWithMemo = React.useMemo(() => allData, [allData]);
-	const columnDefWithDemo = React.useMemo(() => columnDef, [columnDef]);
+	const columnDefWithDemo = React.useMemo(() => columnDefWithGroup, [columnDefWithGroup]);
 
 	const theTable: any = useReactTable({
 		data: dataWithMemo,
@@ -25,7 +26,7 @@ const BasicTableTests1 = (props: Props) => {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedRowModel: getFacetedRowModel(),
         getFilteredRowModel: getFilteredRowModel()
-	} as any);
+	} as TableOptions<Person>);
 
 
     // React.useMemo(() => {
@@ -49,15 +50,9 @@ const BasicTableTests1 = (props: Props) => {
     // }, []);
 
     React.useEffect(() => {
-        let test = theTable.getRowModel().rows.map((el: any)=> {
-            console.log(el.getValue('first_name'))
-        });
+        let test = theTable.options.columns
         // console.log('theTable', test);
     }, []);
-
-
-
-
 
 
 	return (
@@ -70,11 +65,15 @@ const BasicTableTests1 = (props: Props) => {
 							<Mui.TableRow key={headerGroupArray.id}>
 								{headerGroupArray.headers.map(
 									(headerColumn: any) => {
-										// console.log('headerColumn', headerColumn);
+										console.log('headerColumn', headerColumn);
+										if(headerColumn.isPlaceholder){
+											return <Mui.TableCell sx={{border: '1px solid red'}}></Mui.TableCell>;
+										}
 										return (
 											<Mui.TableCell
 												key={headerColumn.id}
 												sx={{ border: "1px solid red" }}
+												colSpan={headerColumn.colSpan}
 											>
 												{flexRender(
 													headerColumn.column
