@@ -13,6 +13,14 @@ export type Person = {
 const columnHelper = createColumnHelper<Person>();
 
 
+function genderFilter(row: any, columnId: any, filterValue: any){
+    console.log('row', row);
+    console.log('columnId', columnId);
+    console.log('filterValue', filterValue);
+    return true;
+}
+
+
 
 export const columnDefWithGroup = [
     columnHelper.accessor('id', {
@@ -29,23 +37,24 @@ export const columnDefWithGroup = [
             })
         ]
     }),
-    columnHelper.accessor('email', {
-        header: 'Email'
+    columnHelper.accessor((orgData: any) => `hello: ${orgData.email}`, {
+        // header: 'Email'
+        id: 'email lalal'
     }),
-    columnHelper.display({
+    columnHelper.accessor('gender', {
         id: 'gender',
-        header: 'Gender',
-        cell: props => {
-            // console.log(props);
-            return props.row.original.gender || 'unknown';
-        }
+        header: (props: any) => {
+            // console.log('props', props);
+            return 'Gender'
+        },
+        // filterFn: genderFilter
     }),
     columnHelper.accessor(()=> 'notFound', {
         id: 'notFound',
-        header: 'Not Found',
+        header: '',
         cell: (info) => {
-            console.log(info)
-            return info.getValue();
+            // console.log(info)
+            return 'blah';
         }
     })
 ]; 

@@ -18,6 +18,10 @@ const BasicTableTests1 = (props: Props) => {
 	const dataWithMemo = React.useMemo(() => allData, [allData]);
 	const columnDefWithDemo = React.useMemo(() => columnDefWithGroup, [columnDefWithGroup]);
 
+	const initialVisibility: any = {
+		first_name: true,
+	}
+
 	const theTable: any = useReactTable({
 		data: dataWithMemo,
 		columns: columnDefWithDemo,
@@ -25,7 +29,10 @@ const BasicTableTests1 = (props: Props) => {
 		getCoreRowModel: getCoreRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedRowModel: getFacetedRowModel(),
-        getFilteredRowModel: getFilteredRowModel()
+        getFilteredRowModel: getFilteredRowModel(),
+		state: {
+			columnVisibility: initialVisibility
+		}
 	} as TableOptions<Person>);
 
 
@@ -49,10 +56,10 @@ const BasicTableTests1 = (props: Props) => {
     //     console.log('theTable', test);
     // }, []);
 
-    React.useEffect(() => {
-        let test = theTable.options.columns
-        // console.log('theTable', test);
-    }, []);
+    // React.useEffect(() => {
+    //     theTable.setColumnFilters([{ id: 'gender', value: 'Female'}]);
+    //     // console.log('theTable', test);
+    // }, []);
 
 
 	return (
@@ -60,14 +67,14 @@ const BasicTableTests1 = (props: Props) => {
 			<Mui.Table sx={{ maxWidth: "650px" }}>
 				<Mui.TableHead sx={{ backgroundColor: "lightgray" }}>
 					{theTable.getHeaderGroups().map((headerGroupArray: any) => {
-						// console.log('headerGroupArray', headerGroupArray);
+						console.log('headerGroupArray', headerGroupArray);
 						return (
 							<Mui.TableRow key={headerGroupArray.id}>
 								{headerGroupArray.headers.map(
 									(headerColumn: any) => {
-										console.log('headerColumn', headerColumn);
+										// console.log('headerColumn', headerColumn);
 										if(headerColumn.isPlaceholder){
-											return <Mui.TableCell sx={{border: '1px solid red'}}></Mui.TableCell>;
+											return <Mui.TableCell sx={{border: '1px solid red'}} key={headerColumn.id}></Mui.TableCell>;
 										}
 										return (
 											<Mui.TableCell
@@ -96,7 +103,11 @@ const BasicTableTests1 = (props: Props) => {
 								{row
 									.getVisibleCells()
 									.map((singleCell: any) => {
+										// console.log('============================');
 										// console.log('singleCell', singleCell);
+										// let test1 = singleCell.column.getFacetedRowModel();
+										// console.log("test1: ", test1);
+
 										return (
 											<Mui.TableCell
 												key={singleCell.id}
