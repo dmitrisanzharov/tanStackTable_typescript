@@ -3,7 +3,8 @@ import './App.css';
 
 // table components
 import BasicTable from './table/BasicTable';
-import BasicTableTests1 from './table/BasicTableTests1'; 
+import TableSorting from './table/TableSorting';
+import GlobalFilterTable from './table/GlobalFilterTable';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <h1>Table should be below</h1>
       <hr />
       {/* <BasicTable /> */}
-      <BasicTableTests1 />
+      {/* <TableSorting /> */}
+      <GlobalFilterTable />
     </div>
   );
 }

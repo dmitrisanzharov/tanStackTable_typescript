@@ -72,12 +72,13 @@ export const columnDef = [
             // console.log('row', data);
             return data.first_name;
         }),
+        omg: 'omg'
     },
     {
         id: 'email', 
         accessorKey: 'email',
         cell: (info: any)=> {
-            console.log('info', info)
+            // console.log('info', info)
             return <h1>{info.getValue('email')}</h1>
         }
     }

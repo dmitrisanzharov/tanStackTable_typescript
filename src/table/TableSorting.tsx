@@ -6,7 +6,8 @@ import {
 	getFacetedUniqueValues,
 	getFacetedRowModel,
     getFilteredRowModel, 
-	TableOptions
+	TableOptions,
+    getSortedRowModel
 } from "@tanstack/react-table";
 import * as Mui from "@mui/material";
 import allData from "./data";
@@ -14,13 +15,17 @@ import { columnDef, Person, columnDefWithGroup } from "./columnDef";
 
 type Props = {};
 
-const BasicTableTests1 = (props: Props) => {
+const TableSorting = (props: Props) => {
 	const dataWithMemo = React.useMemo(() => allData, [allData]);
-	const columnDefWithDemo = React.useMemo(() => columnDefWithGroup, [columnDefWithGroup]);
+	const columnDefWithDemo = React.useMemo(() => columnDef, [columnDef]);
 
-	const initialVisibility: any = {
-		first_name: true,
-	}
+    // const [sorting, setSorting] = React.useState<any>([
+    //     {
+    //         id: 'first_name',
+    //         desc: false
+    //     }
+    // ]);
+ 
 
 	const theTable: any = useReactTable({
 		data: dataWithMemo,
@@ -30,9 +35,11 @@ const BasicTableTests1 = (props: Props) => {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedRowModel: getFacetedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-		state: {
-			columnVisibility: initialVisibility
-		}
+        getSortedRowModel: getSortedRowModel()
+        // state: {
+        //     sorting: sorting
+        // },
+        // onSortingChange: setSorting
 	} as TableOptions<Person>);
 
 
@@ -67,7 +74,7 @@ const BasicTableTests1 = (props: Props) => {
 			<Mui.Table sx={{ maxWidth: "650px" }}>
 				<Mui.TableHead sx={{ backgroundColor: "lightgray" }}>
 					{theTable.getHeaderGroups().map((headerGroupArray: any) => {
-						console.log('headerGroupArray', headerGroupArray);
+						// console.log('headerGroupArray', headerGroupArray);
 						return (
 							<Mui.TableRow key={headerGroupArray.id}>
 								{headerGroupArray.headers.map(
@@ -82,11 +89,12 @@ const BasicTableTests1 = (props: Props) => {
 												sx={{ border: "1px solid red" }}
 												colSpan={headerColumn.colSpan}
 											>
-												{flexRender(
+                                                <>												{flexRender(
 													headerColumn.column
 														.columnDef.header,
 													headerColumn.getContext()
-												)}
+												)}</>
+                                                <button onClick={headerColumn.column.getToggleSortingHandler()}>{headerColumn.column.getIsSorted() || 'no sort'}</button>
 											</Mui.TableCell>
 										);
 									}
@@ -137,4 +145,4 @@ const BasicTableTests1 = (props: Props) => {
 	);
 };
 
-export default BasicTableTests1;
+export default TableSorting;
