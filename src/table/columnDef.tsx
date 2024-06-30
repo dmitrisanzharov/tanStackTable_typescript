@@ -21,6 +21,39 @@ function genderFilter(row: any, columnId: any, filterValue: any){
 }
 
 
+export const columnDefWithRowSelection = [
+    {
+        id: 'col_select',
+        header: ({table}: any) => {
+            return <input type="checkbox" checked={table.getIsAllRowsSelected()} onChange={table.getToggleAllRowsSelectedHandler()} />
+        },
+        cell: ({row}: any) => {
+            return <input type='checkbox' checked={row.getIsSelected()} disabled={!row.getCanSelect()} onChange={row.getToggleSelectedHandler()} />
+        }
+    },
+    {
+        id: 'id', 
+        accessorKey: 'id'
+    },
+    {
+        id: 'first_name',
+        header: 'First Name', 
+        accessorFn: ((data: any)=> {
+            // console.log('row', data);
+            return data.first_name;
+        }),
+        omg: 'omg'
+    },
+    {
+        id: 'email', 
+        accessorKey: 'email',
+        cell: (info: any)=> {
+            // console.log('info', info)
+            return <>{info.getValue('email')}</>
+        }
+    }
+]
+
 
 export const columnDefWithGroup = [
     columnHelper.accessor('id', {
@@ -79,7 +112,7 @@ export const columnDef = [
         accessorKey: 'email',
         cell: (info: any)=> {
             // console.log('info', info)
-            return <h1>{info.getValue('email')}</h1>
+            return <>{info.getValue('email')}</>
         }
     }
 ]

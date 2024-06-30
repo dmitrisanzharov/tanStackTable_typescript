@@ -5,6 +5,8 @@ import './App.css';
 import BasicTable from './table/BasicTable';
 import TableSorting from './table/TableSorting';
 import GlobalFilterTable from './table/GlobalFilterTable';
+import PaginationTable from './table/PaginationTable';
+import RowSelectionTable from './table/RowSelectionTable';
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
       <hr />
       {/* <BasicTable /> */}
       {/* <TableSorting /> */}
-      <GlobalFilterTable />
+      {/* <GlobalFilterTable /> */}
+      {/* <PaginationTable /> */}
+      <RowSelectionTable />
     </div>
   );
 }

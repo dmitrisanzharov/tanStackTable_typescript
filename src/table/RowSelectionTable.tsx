@@ -2,13 +2,15 @@ import React from "react";
 import { useReactTable, getCoreRowModel, flexRender, getFacetedUniqueValues, getFacetedRowModel, getFilteredRowModel, TableOptions } from "@tanstack/react-table";
 import * as Mui from "@mui/material";
 import allData from "./data";
-import { columnDef, Person } from "./columnDef";
+import { columnDef, Person, columnDefWithRowSelection } from "./columnDef";
 
 type Props = {};
 
-const TableTemplate = (props: Props) => {
+const RowSelectionTable = (props: Props) => {
 	const dataWithMemo = React.useMemo(() => allData, [allData]);
-	const columnDefWithDemo = React.useMemo(() => columnDef, [columnDef]);
+	const columnDefWithDemo = React.useMemo(() => columnDefWithRowSelection, [columnDefWithRowSelection]);
+
+	const [selectedRows, setSelectedRows] = React.useState({});
 
 	const theTable: any = useReactTable({
 		data: dataWithMemo,
@@ -18,10 +20,28 @@ const TableTemplate = (props: Props) => {
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
+		state: {
+			rowSelection: selectedRows,
+		},
+		onRowSelectionChange: setSelectedRows,
 	} as TableOptions<Person>);
+
+	console.log('table', theTable)
 
 	return (
 		<>
+		<h2>Select rows</h2>
+		<button onClick={()=> theTable.resetRowSelection()}>reset</button>
+		{/* <input type="checkbox" value={theTable.getIsAllRowsSelected()} onChange={theTable.getToggleAllRowsSelectedHandler()} />
+		<hr /> */}
+		<Mui.Box sx={{maxHeight: '200px', overflow: 'scroll'}}>
+		<ul>
+			{theTable.getSelectedRowModel().flatRows.map((el: any)=> {
+				return <li key={el.id}>{JSON.stringify(el)}</li>
+			})}
+		</ul>
+		</Mui.Box>
+		<hr />
 			<Mui.TableContainer>
 				<Mui.Table sx={{ maxWidth: "650px" }}>
 					<Mui.TableHead sx={{ backgroundColor: "lightgray" }}>
@@ -81,4 +101,4 @@ const TableTemplate = (props: Props) => {
 	);
 };
 
-export default TableTemplate;
+export default RowSelectionTable;
