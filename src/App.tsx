@@ -7,6 +7,9 @@ import TableSorting from './table/TableSorting';
 import GlobalFilterTable from './table/GlobalFilterTable';
 import PaginationTable from './table/PaginationTable';
 import RowSelectionTable from './table/RowSelectionTable';
+import ColumnOrdering from './table/ColumnOrdering';
+import FacetedValues from './table/FacetedValues';
+import ColHiding from './table/ColHiding';
 
 function App() {
   return (
@@ -17,7 +20,10 @@ function App() {
       {/* <TableSorting /> */}
       {/* <GlobalFilterTable /> */}
       {/* <PaginationTable /> */}
-      <RowSelectionTable />
+      {/* <RowSelectionTable /> */}
+      {/* <ColumnOrdering /> */}
+      {/* <FacetedValues /> */}
+      <ColHiding />
     </div>
   );
 }
