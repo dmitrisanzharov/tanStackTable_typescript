@@ -25,7 +25,9 @@ const BasicTable = (props: Props) => {
         getFilteredRowModel: getFilteredRowModel()
     } as any);
 
-    const names = ['Ermin', 'Lydia', 'Jervis'];
+    const names = React.useMemo(()=> {
+        return Array.from(new Set(apiData.map((el: any)=> el.first_name))).sort();
+    }, []);
 
     const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -40,7 +42,6 @@ const BasicTable = (props: Props) => {
     };
 
     React.useEffect(() => {
-
         table.setColumnFilters([{id: 'first_name', value: personName}])
     }, [personName]);
 
@@ -56,7 +57,7 @@ const BasicTable = (props: Props) => {
                     onChange={handleChange}
                     input={<OutlinedInput label='Name' />}
                 >
-                    {names.map((name) => (
+                    {names.map((name: any) => (
                         <MenuItem key={name} value={name}>
                             {name}
                         </MenuItem>

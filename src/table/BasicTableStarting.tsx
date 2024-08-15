@@ -25,10 +25,6 @@ const BasicTable = (props: Props) => {
         getFilteredRowModel: getFilteredRowModel()
     } as any);
 
-    React.useEffect(() => {
-        table.setColumnFilters([{id: 'first_name', value: []}])
-    }, []);
-
     return (
         <>
             <TableContainer component={Paper}>

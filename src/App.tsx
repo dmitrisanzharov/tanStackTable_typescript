@@ -11,6 +11,7 @@ function App() {
       <h1>Table should be below</h1>
       <hr />
       <BasicTableCompleted />
+      {/* <BasicTableStarting /> */}
     </div>
   );
 }
