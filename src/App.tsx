@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 // table components
-import BasicTable from './table/BasicTable';
+import BasicTableStarting from './table/BasicTableStarting';
 import BasicTableCompleted from './table/BasicTableCompleted';
 
 function App() {
