@@ -25,12 +25,45 @@ const BasicTable = (props: Props) => {
         getFilteredRowModel: getFilteredRowModel()
     } as any);
 
+    const names = ['Ermin', 'Lydia', 'Jervis'];
+
+    const [personName, setPersonName] = React.useState<string[]>([]);
+
+    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value
+        );
+    };
+
     React.useEffect(() => {
-        table.setColumnFilters([{id: 'first_name', value: []}])
-    }, []);
+
+        table.setColumnFilters([{id: 'first_name', value: personName}])
+    }, [personName]);
 
     return (
         <>
+            <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id='demo-multiple-name-label'>Name</InputLabel>
+                <Select
+                    labelId='demo-multiple-name-label'
+                    id='demo-multiple-name'
+                    multiple
+                    value={personName}
+                    onChange={handleChange}
+                    input={<OutlinedInput label='Name' />}
+                >
+                    {names.map((name) => (
+                        <MenuItem key={name} value={name}>
+                            {name}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <hr />
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }}>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
@@ -39,7 +72,7 @@ const BasicTable = (props: Props) => {
                             return (
                                 <TableRow key={headerGroupArr.id}>
                                     {headerGroupArr.headers.map((headerColumn: any) => {
-                                        console.log('headerColumn', headerColumn);
+                                        // console.log('headerColumn', headerColumn);
                                         return (
                                             <TableCell key={headerColumn.id}>
                                                 {flexRender(headerColumn.column.columnDef.header, headerColumn.getContext())}
