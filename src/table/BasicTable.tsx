@@ -16,6 +16,7 @@ const BasicTable = (props: Props) => {
 		getCoreRowModel: getCoreRowModel(),
 	});
 
+
 	return (
 		<TableContainer>
 			<Table>
@@ -35,7 +36,7 @@ const BasicTable = (props: Props) => {
 				{table.getRowModel().rows.map((row: any) => {
 					// console.log("row", row);
 					return (
-						<TableRow key={row.id}>
+						<TableRow key={row.id} sx={{'&:hover': {backgroundColor: 'lightyellow', cursor: 'pointer'}}}>
 							{row.getVisibleCells().map((cell: any) => {
 								return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>;
 							})}
