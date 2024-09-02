@@ -5,6 +5,7 @@ import './App.css';
 import BasicTable from './table/BasicTable';
 import MessAroundTable from './table/MessAroundTable';
 import TableGroupCol from './table/TableGroupCol';
+import TableHeaders from './table/TableHeaders';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <hr />
       {/* <BasicTable /> */}
       {/* <MessAroundTable /> */}
-      <TableGroupCol />
+      {/* <TableGroupCol /> */}
+      <TableHeaders />
     </div>
   );
 }

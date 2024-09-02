@@ -2,14 +2,17 @@ import React from "react";
 import { useReactTable, getCoreRowModel, flexRender, getFilteredRowModel, getFacetedUniqueValues, getFacetedRowModel } from "@tanstack/react-table";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import dataMain from "./data";
-import { colDef, colDef2 } from "./colDef";
+import { colDef, colDef2, colDef3 } from "./colDef";
 
 type Props = {};
 
 const AnyName = (props: Props) => {
 	const [count, setCount] = React.useState(0);
 
-	const colDefMemo: any = React.useMemo(() => colDef2, []);
+
+	const [vis, setVis] = React.useState({first_name: true, foo: false})
+
+	const colDefMemo: any = React.useMemo(() => colDef3, []);
 	const dataMemo: any = React.useMemo(() => dataMain, []);
 
 	const table = useReactTable({
@@ -18,18 +21,20 @@ const AnyName = (props: Props) => {
         // initialState: {
         //     columnFilters: [{ id: "first_name", value: "Ermin" }],
         // },
+		state: {
+			columnVisibility: vis
+		},
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedRowModel: getFacetedRowModel(),
+		onColumnVisibilityChange: setVis
 	} as any);
 
     React.useEffect(() => {
      
         let foo = table.getHeaderGroups();
-        console.log("foo: ", foo);
-
-        
+        // console.log("foo: ", foo);
 
     }, [count]);
 
@@ -37,13 +42,12 @@ const AnyName = (props: Props) => {
 		<>
 			<h4>{count}</h4>
 			<button onClick={() => setCount(count + 1)}>inc</button>
-
 			<hr />
 			<TableContainer>
 				<Table>
 					<TableHead sx={{ backgroundColor: "lightgray" }}>
 						{table.getHeaderGroups().map((headerGroup: any) => {
-							// console.log("headerGroup", headerGroup);
+							console.log("headerGroup", headerGroup);
 							return (
 								<TableRow key={headerGroup.id}>
 									{headerGroup.headers.map((headerColumn: any) => {
