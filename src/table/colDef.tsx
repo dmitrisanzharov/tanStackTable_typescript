@@ -72,3 +72,22 @@ export const colDef3: any = [
         header: 'name',
     } as any),
 ];
+
+
+export const colDefForBasic2: any = [
+    {
+        accessorKey: 'id',
+        id: 'id',
+        header: 'ID',
+    },
+    {
+        accessorKey: 'first_name',
+        id: 'first_name',
+        header: 'First',
+    },
+    {
+        accessorKey: 'last_name',
+        id: 'last_name',
+        header: 'Second',
+    }
+]
