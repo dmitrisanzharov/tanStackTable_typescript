@@ -12,6 +12,8 @@ import GlobalFilterTable from './table/GlobalFilterTable';
 import ColumnFilterTable from './table/ColumnFilterTable';
 import ColumnFilterTable2 from './table/ColumnFilterTable2';
 import PaginationTable from './table/PaginationTable';
+import RowSelectionTable from './table/RowSelectionTable';
+import ColumnOrderingTable from './table/ColumnOrderingTable';
 
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
     <div>
       <h1>Table should be below</h1>
       <hr />
-      <PaginationTable />
+      <ColumnOrderingTable />
+      {/* <RowSelectionTable /> */}
+      {/* <PaginationTable /> */}
       {/* <ColumnFilterTable2 /> */}
       {/* <GlobalFilterTable /> */}
       {/* <BasicTable2 /> */}
