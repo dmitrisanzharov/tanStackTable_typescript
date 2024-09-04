@@ -7,6 +7,11 @@ import BasicTable from './table/BasicTable';
 import MessAroundTable from './table/MessAroundTable';
 import TableGroupCol from './table/TableGroupCol';
 import TableHeaders from './table/TableHeaders';
+import SortingTable from './table/SortingTable';
+import GlobalFilterTable from './table/GlobalFilterTable';
+import ColumnFilterTable from './table/ColumnFilterTable';
+import ColumnFilterTable2 from './table/ColumnFilterTable2';
+import PaginationTable from './table/PaginationTable';
 
 
 function App() {
@@ -14,11 +19,15 @@ function App() {
     <div>
       <h1>Table should be below</h1>
       <hr />
-      <BasicTable2 />
+      <PaginationTable />
+      {/* <ColumnFilterTable2 /> */}
+      {/* <GlobalFilterTable /> */}
+      {/* <BasicTable2 /> */}
       {/* <BasicTable /> */}
       {/* <MessAroundTable /> */}
       {/* <TableGroupCol /> */}
       {/* <TableHeaders /> */}
+      {/* <SortingTable /> */}
     </div>
   );
 }
