@@ -2,12 +2,12 @@ import React from 'react';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import dataMain from './data';
-import { colDef, colDefFoo } from './colDef';
+import { colDef, colDefFoo, colDefDefault } from './colDef';
 
 type Props = {};
 
 const BasicTable = (props: Props) => {
-    const colDefMemo: any = React.useMemo(() => colDefFoo, []);
+    const colDefMemo: any = React.useMemo(() => colDefDefault, []);
     const dataMemo: any = React.useMemo(() => dataMain, []);
 
     const table = useReactTable({
@@ -16,18 +16,11 @@ const BasicTable = (props: Props) => {
         getCoreRowModel: getCoreRowModel(),
     });
 
-    // React.useEffect(() => {
-    //     {table.getHeaderGroups().map((headerGroup: any)=> {
-    //         console.log('headerGroup', headerGroup);
-    //     })}
-    // }, []);
-
     return (
         <TableContainer>
             <Table>
                 <TableHead>
                     {table.getHeaderGroups().map((headerRow: any) => {
-                        // console.log('headerRow', headerRow);
                         return (
                             <TableRow key={headerRow.id} sx={{ backgroundColor: 'lightgray' }}>
                                 {headerRow.headers.map((headerCell: any) => {
@@ -43,7 +36,6 @@ const BasicTable = (props: Props) => {
                 </TableHead>
                 <TableBody>
                     {table.getRowModel().rows.map((row: any) => {
-                        console.log('row', row);
                         return (
                             <TableRow key={row.id}>
                                 {row.getVisibleCells().map((cell: any) => {
