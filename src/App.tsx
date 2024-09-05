@@ -14,6 +14,7 @@ import ColumnFilterTable2 from './table/ColumnFilterTable2';
 import PaginationTable from './table/PaginationTable';
 import RowSelectionTable from './table/RowSelectionTable';
 import ColumnOrderingTable from './table/ColumnOrderingTable';
+import FacetedValuesTable from './table/FacetedValuesTable';
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
     <div>
       <h1>Table should be below</h1>
       <hr />
-      <ColumnOrderingTable />
+      <FacetedValuesTable />
+      {/* <ColumnOrderingTable /> */}
       {/* <RowSelectionTable /> */}
       {/* <PaginationTable /> */}
       {/* <ColumnFilterTable2 /> */}
